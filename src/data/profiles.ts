@@ -37,8 +37,8 @@ export const profiles: Profile[] = [
     lastName: "Spasojević",
     pik: "Profesionalni ispijač kafe",
     nick: "Spaske",
-    dob: "12.05.2005.",
-    favoriteCafe: "Kafeterija",
+    dob: "12.12.2005.",
+    favoriteCafe: "Kafe Lorenzo",
     lifeMotto: "Bez dobre kafe nema dobrog dana.",
     image: "/images/nikola.png",
     socials: [
@@ -60,7 +60,7 @@ export const profiles: Profile[] = [
         },
       },
       {
-        cafeName: "Pržionica",
+        cafeName: "Baristokratija",
         city: "Beograd",
         note: "Kafa odlična, usluga malo sporija.",
         ratings: {
