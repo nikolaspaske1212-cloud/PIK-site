@@ -1,0 +1,15 @@
+---
+import ProfilePage from "../components/ProfilePage.astro";
+import { profiles } from "../data/profiles";
+
+export function getStaticPaths() {
+  return profiles.map((profile) => ({
+    params: { slug: profile.slug },
+    props: { profile },
+  }));
+}
+
+const { profile } = Astro.props;
+---
+
+<ProfilePage profile={profile} />
