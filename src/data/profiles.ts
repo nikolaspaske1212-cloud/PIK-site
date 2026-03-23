@@ -11,6 +11,11 @@ export type Review = {
   };
 };
 
+export type SocialLink = {
+  label: string;
+  url: string;
+};
+
 export type Profile = {
   slug: string;
   firstName: string;
@@ -21,6 +26,7 @@ export type Profile = {
   favoriteCafe: string;
   lifeMotto: string;
   image: string;
+  socials: SocialLink[];
   reviews: Review[];
 };
 
@@ -35,17 +41,22 @@ export const profiles: Profile[] = [
     favoriteCafe: "Kafeterija",
     lifeMotto: "Bez dobre kafe nema dobrog dana.",
     image: "/images/nikola.png",
+    socials: [
+      { label: "Instagram", url: "https://www.instagram.com/_spasojevicnikola/" },
+      { label: "TikTok", url: "https://tiktok.com/" },
+      { label: "Spotify", url: "https://open.spotify.com/user/31sgi2jdxjevrqmghs6s7hj57iha" },
+    ],
     reviews: [
       {
-        cafeName: "Kafeterija",
+        cafeName: "Kafe Lorenzo",
         city: "Beograd",
-        note: "Dobar espresso i baš prijatan vajb.",
+        note: "Dobar espresso i baš prijatan vajb. Predobra konobarica!",
         ratings: {
           coffee: 9,
           ambience: 8,
-          service: 8,
-          price: 7,
-          revisit: 9,
+          service: 111,
+          price: 9,
+          revisit: 10,
         },
       },
       {
@@ -72,6 +83,10 @@ export const profiles: Profile[] = [
     favoriteCafe: "Bloom",
     lifeMotto: "Polako, ali sa stilom.",
     image: "/images/anastasija.jpg",
+    socials: [
+      { label: "Instagram", url: "https://instagram.com/" },
+      { label: "TikTok", url: "https://tiktok.com/" },
+    ],
     reviews: [
       {
         cafeName: "Bloom",

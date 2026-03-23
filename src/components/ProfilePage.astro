@@ -11,8 +11,10 @@ const totalReviews = profile.reviews.length;
 const averageCoffee =
   totalReviews > 0
     ? (
-        profile.reviews.reduce((sum, review) => sum + review.ratings.coffee, 0) /
-        totalReviews
+        profile.reviews.reduce(
+          (sum, review) => sum + review.ratings.coffee,
+          0,
+        ) / totalReviews
       ).toFixed(1)
     : null;
 ---
@@ -35,6 +37,10 @@ const averageCoffee =
       <div class="shape shape-bottom-left"></div>
 
       <div class="container">
+        <div class="logo-wrap">
+          <img src="/images/pik-logo.png" alt="P.I.K. logo" class="logo" />
+        </div>
+
         <section class="hero-card">
           <div class="avatar-wrap">
             <img
@@ -74,72 +80,164 @@ const averageCoffee =
           </div>
         </section>
 
+        <section class="socials-card">
+          <div class="socials-list">
+            {
+              profile.socials.map((social) => (
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-icon-link"
+                  aria-label={social.label}
+                  title={social.label}
+                >
+                  {social.label === "Instagram" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                      <circle cx="12" cy="12" r="4.2" />
+                      <circle cx="17.4" cy="6.6" r="1.1" />
+                    </svg>
+                  )}
+
+                  {social.label === "TikTok" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <path d="M14.5 4c.5 1.7 1.8 3.1 3.5 3.7v2.4c-1.2-.1-2.4-.5-3.5-1.2v5.5a5.3 5.3 0 1 1-5.3-5.3c.3 0 .6 0 .9.1v2.5a2.8 2.8 0 1 0 1.9 2.7V4h2.5Z" />
+                    </svg>
+                  )}
+
+                  {social.label === "Spotify" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M8 10.2c2.9-.8 6-.6 8.6.8" />
+                      <path d="M8.8 12.8c2.2-.5 4.6-.4 6.6.7" />
+                      <path d="M9.5 15.2c1.7-.3 3.4-.2 4.9.5" />
+                    </svg>
+                  )}
+
+                  {social.label === "YouTube" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <path d="M21 12s0-3-0.4-4.4a2.8 2.8 0 0 0-2-2C17.2 5.2 12 5.2 12 5.2s-5.2 0-6.6.4a2.8 2.8 0 0 0-2 2C3 9 3 12 3 12s0 3 .4 4.4a2.8 2.8 0 0 0 2 2c1.4.4 6.6.4 6.6.4s5.2 0 6.6-.4a2.8 2.8 0 0 0 2-2C21 15 21 12 21 12Z" />
+                      <path d="M10 9.5 15 12l-5 2.5Z" />
+                    </svg>
+                  )}
+
+                  {social.label === "X" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <path d="M4 4h4.2l4 5.4L17 4H20l-6.3 7.2L20.5 20h-4.2l-4.3-5.8L6.8 20H4l6.8-7.8Z" />
+                    </svg>
+                  )}
+
+                  {social.label === "Website" && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="social-icon"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M3.5 12h17" />
+                      <path d="M12 3c2.5 2.4 4 5.6 4 9s-1.5 6.6-4 9c-2.5-2.4-4-5.6-4-9s1.5-6.6 4-9Z" />
+                    </svg>
+                  )}
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
         <section class="reviews-card">
           <div class="reviews-head">
             <div>
               <h2>Recenzije</h2>
               <p class="reviews-subtitle">
-                {totalReviews} {totalReviews === 1 ? "kafić" : "kafića"}
+                {totalReviews}
+                {totalReviews === 1 ? "kafić" : "kafića"}
               </p>
             </div>
 
-            {averageCoffee && (
-              <div class="coffee-stat">
-                <span class="coffee-stat-label">Prosek kafe</span>
-                <strong>{averageCoffee}/10</strong>
-              </div>
-            )}
+            {
+              averageCoffee && (
+                <div class="coffee-stat">
+                  <span class="coffee-stat-label">Prosek kafe</span>
+                  <strong>{averageCoffee}/10</strong>
+                </div>
+              )
+            }
           </div>
 
           <div class="reviews-list">
-            {profile.reviews.map((review) => {
-              const reviewAverage = averageFromRatings(review.ratings).toFixed(1);
+            {
+              profile.reviews.map((review) => {
+                const reviewAverage = averageFromRatings(
+                  review.ratings,
+                ).toFixed(1);
 
-              return (
-                <article class="review-item">
-                  <div class="review-top">
-                    <div>
-                      <h3>{review.cafeName}</h3>
-                      <p class="city">{review.city}</p>
+                return (
+                  <article class="review-item">
+                    <div class="review-top">
+                      <div>
+                        <h3>{review.cafeName}</h3>
+                        <p class="city">{review.city}</p>
+                      </div>
+
+                      <div class="score-box">
+                        <span>Ocena</span>
+                        <strong>{reviewAverage}</strong>
+                      </div>
                     </div>
 
-                    <div class="score-box">
-                      <span>Ocena</span>
-                      <strong>{reviewAverage}</strong>
-                    </div>
-                  </div>
+                    <p class="note">{review.note}</p>
 
-                  <p class="note">{review.note}</p>
+                    <div class="ratings-grid">
+                      <div class="rating-row">
+                        <span>Kafa</span>
+                        <strong>{review.ratings.coffee}/10</strong>
+                      </div>
 
-                  <div class="ratings-grid">
-                    <div class="rating-row">
-                      <span>Kafa</span>
-                      <strong>{review.ratings.coffee}/10</strong>
-                    </div>
+                      <div class="rating-row">
+                        <span>Ambijent</span>
+                        <strong>{review.ratings.ambience}/10</strong>
+                      </div>
 
-                    <div class="rating-row">
-                      <span>Ambijent</span>
-                      <strong>{review.ratings.ambience}/10</strong>
-                    </div>
+                      <div class="rating-row">
+                        <span>Usluga</span>
+                        <strong>{review.ratings.service}/10</strong>
+                      </div>
 
-                    <div class="rating-row">
-                      <span>Usluga</span>
-                      <strong>{review.ratings.service}/10</strong>
-                    </div>
+                      <div class="rating-row">
+                        <span>Cena</span>
+                        <strong>{review.ratings.price}/10</strong>
+                      </div>
 
-                    <div class="rating-row">
-                      <span>Cena</span>
-                      <strong>{review.ratings.price}/10</strong>
+                      <div class="rating-row">
+                        <span>Ponovni dolazak</span>
+                        <strong>{review.ratings.revisit}/10</strong>
+                      </div>
                     </div>
-
-                    <div class="rating-row">
-                      <span>Ponovni dolazak</span>
-                      <strong>{review.ratings.revisit}/10</strong>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+                  </article>
+                );
+              })
+            }
           </div>
         </section>
       </div>
@@ -149,7 +247,16 @@ const averageCoffee =
 
 <style>
   :root {
-    font-family: Arial, Helvetica, sans-serif;
+    --bg-main: #f7f1e8;
+    --bg-soft: #fff9f2;
+    --bg-muted: #eadbc8;
+    --accent: #c49a6c;
+    --accent-strong: #8b5e3c;
+    --accent-dark: #5a341c;
+    --text-main: #3a2417;
+    --text-soft: #7a5a46;
+    --line: rgba(90, 52, 28, 0.12);
+    font-family: Georgia, "Times New Roman", serif;
     color-scheme: light;
   }
 
@@ -164,21 +271,33 @@ const averageCoffee =
   }
 
   body {
-    background: #5f5f61;
-    color: #111;
+    background: var(--bg-main);
+    color: var(--text-main);
   }
 
   .page {
     position: relative;
     min-height: 100svh;
     overflow: hidden;
-    padding: 2rem 1rem 3rem;
-    background: linear-gradient(180deg, #6d6d70 0%, #59595c 100%);
+    padding: 1.2rem 1rem 3rem;
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(196, 154, 108, 0.12),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(139, 94, 60, 0.1),
+        transparent 24%
+      ),
+      linear-gradient(180deg, #f8f3ec 0%, #f5ede2 100%);
   }
 
   .shape {
     position: absolute;
     pointer-events: none;
+    opacity: 0.45;
   }
 
   .shape-top-left {
@@ -188,7 +307,7 @@ const averageCoffee =
     height: 24vh;
     min-width: 170px;
     min-height: 150px;
-    background: #f1f1f3;
+    background: #fffaf4;
     clip-path: polygon(0 0, 100% 0, 0 100%);
   }
 
@@ -199,7 +318,7 @@ const averageCoffee =
     height: 23vh;
     min-width: 150px;
     min-height: 140px;
-    background: linear-gradient(135deg, #f6f6f8 0%, #d9dbe1 100%);
+    background: linear-gradient(135deg, #fff8ee 0%, #eadbc8 100%);
     clip-path: polygon(35% 0, 100% 0, 100% 60%, 72% 100%, 0 55%);
   }
 
@@ -210,7 +329,7 @@ const averageCoffee =
     height: 18vh;
     min-width: 90px;
     min-height: 110px;
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(196, 154, 108, 0.16);
     clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
   }
 
@@ -218,24 +337,38 @@ const averageCoffee =
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 420px;
+    max-width: 430px;
     margin: 0 auto;
   }
 
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .logo {
+    width: min(44vw, 150px);
+    max-width: 150px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 18px rgba(90, 52, 28, 0.12));
+  }
+
   .hero-card {
-    padding-top: 3.75rem;
+    padding-top: 0.4rem;
     text-align: center;
   }
 
   .avatar-wrap {
     width: min(66vw, 220px);
     aspect-ratio: 1 / 1;
-    margin: 0 auto 1.4rem;
+    margin: 0 auto 1.2rem;
     padding: 8px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 5px solid #7c7c7c;
-    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.24);
+    background: #fffdf9;
+    border: 4px solid var(--bg-muted);
+    box-shadow: 0 14px 28px rgba(90, 52, 28, 0.14);
   }
 
   .avatar {
@@ -250,38 +383,34 @@ const averageCoffee =
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: fit-content;
-    max-width: 100%;
-    margin-inline: auto;
-    font-size: clamp(2.3rem, 10vw, 4.2rem);
+    align-items: center;
+    gap: 0;
+    font-size: clamp(2.3rem, 10vw, 4.1rem);
     line-height: 0.9;
     letter-spacing: -0.04em;
-    font-weight: 800;
-    color: #ffffff;
-    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.32);
+    font-weight: 700;
+    color: var(--accent-dark);
   }
 
   .pik {
     margin: 0.9rem auto 0;
-    width: fit-content;
     max-width: min(84vw, 320px);
     font-size: 1.05rem;
-    line-height: 1.25;
+    line-height: 1.35;
     font-weight: 700;
-    color: #ffffff;
-    text-align: left;
-    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.32);
+    color: var(--text-soft);
   }
 
   .info-card,
+  .socials-card,
   .reviews-card {
-    margin-top: 1.2rem;
+    margin-top: 1.1rem;
     padding: 1rem;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.92);
-    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.16);
-    backdrop-filter: blur(6px);
+    border-radius: 24px;
+    background: rgba(255, 249, 242, 0.92);
+    border: 1px solid rgba(196, 154, 108, 0.18);
+    box-shadow: 0 16px 28px rgba(90, 52, 28, 0.08);
+    backdrop-filter: blur(4px);
   }
 
   .info-card {
@@ -291,7 +420,7 @@ const averageCoffee =
 
   .info-item {
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid var(--line);
   }
 
   .info-item:last-child {
@@ -306,15 +435,67 @@ const averageCoffee =
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #6a6a6d;
+    color: var(--accent-strong);
   }
 
   .value {
     margin: 0;
     font-size: 1rem;
-    line-height: 1.35;
-    color: #1d1d1f;
+    line-height: 1.4;
+    color: var(--text-main);
     font-weight: 700;
+  }
+
+  .socials-card {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .reviews-head h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: var(--accent-dark);
+  }
+
+  .socials-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .social-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: #fffdf9;
+    border: 1px solid rgba(196, 154, 108, 0.28);
+    color: var(--accent-dark);
+    text-decoration: none;
+    box-shadow: 0 8px 14px rgba(90, 52, 28, 0.08);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      background 0.18s ease;
+  }
+
+  .social-icon-link:hover {
+    transform: translateY(-1px);
+    background: #f6ece0;
+    box-shadow: 0 10px 18px rgba(90, 52, 28, 0.12);
+  }
+
+  .social-icon {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .reviews-head {
@@ -325,23 +506,17 @@ const averageCoffee =
     margin-bottom: 1rem;
   }
 
-  .reviews-head h2 {
-    margin: 0;
-    font-size: 1.45rem;
-    color: #1d1d1f;
-  }
-
   .reviews-subtitle {
     margin: 0.3rem 0 0;
     font-size: 0.95rem;
-    color: #666;
+    color: var(--text-soft);
   }
 
   .coffee-stat {
     min-width: 96px;
     padding: 0.65rem 0.75rem;
     border-radius: 16px;
-    background: #f3f3f5;
+    background: #f3e7d8;
     text-align: center;
   }
 
@@ -351,12 +526,12 @@ const averageCoffee =
     font-size: 0.72rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: #666;
+    color: var(--text-soft);
   }
 
   .coffee-stat strong {
     font-size: 1.1rem;
-    color: #1d1d1f;
+    color: var(--accent-dark);
   }
 
   .reviews-list {
@@ -366,9 +541,9 @@ const averageCoffee =
 
   .review-item {
     padding: 1rem;
-    border-radius: 18px;
-    background: #f8f8f9;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    background: #fffdf9;
+    border: 1px solid rgba(196, 154, 108, 0.18);
   }
 
   .review-top {
@@ -381,13 +556,13 @@ const averageCoffee =
   .review-top h3 {
     margin: 0;
     font-size: 1.1rem;
-    color: #1d1d1f;
+    color: var(--accent-dark);
   }
 
   .city {
     margin: 0.2rem 0 0;
     font-size: 0.92rem;
-    color: #666;
+    color: var(--text-soft);
   }
 
   .score-box {
@@ -395,7 +570,7 @@ const averageCoffee =
     min-width: 72px;
     padding: 0.55rem 0.65rem;
     border-radius: 14px;
-    background: #ececef;
+    background: #f2e5d5;
     text-align: center;
   }
 
@@ -403,7 +578,7 @@ const averageCoffee =
     display: block;
     font-size: 0.72rem;
     text-transform: uppercase;
-    color: #666;
+    color: var(--text-soft);
     font-weight: 800;
   }
 
@@ -411,14 +586,14 @@ const averageCoffee =
     display: block;
     margin-top: 0.1rem;
     font-size: 1.1rem;
-    color: #1d1d1f;
+    color: var(--accent-dark);
   }
 
   .note {
     margin: 0.85rem 0 0;
     font-size: 0.95rem;
     line-height: 1.45;
-    color: #333;
+    color: var(--text-main);
   }
 
   .ratings-grid {
@@ -433,26 +608,26 @@ const averageCoffee =
     gap: 1rem;
     padding: 0.65rem 0.75rem;
     border-radius: 12px;
-    background: #ffffff;
+    background: #fff7ee;
     font-size: 0.93rem;
   }
 
   .rating-row span {
-    color: #555;
+    color: var(--text-soft);
     font-weight: 700;
   }
 
   .rating-row strong {
-    color: #111;
+    color: var(--accent-dark);
   }
 
   @media (min-width: 768px) {
     .page {
-      padding-top: 2.5rem;
+      padding-top: 2rem;
     }
 
-    .hero-card {
-      padding-top: 2.5rem;
+    .logo {
+      max-width: 170px;
     }
 
     .avatar-wrap {
@@ -460,6 +635,7 @@ const averageCoffee =
     }
 
     .info-card,
+    .socials-card,
     .reviews-card {
       padding: 1.2rem;
     }
